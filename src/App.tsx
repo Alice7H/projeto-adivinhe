@@ -1,5 +1,6 @@
 import styles from './app.module.css'
 import { Header } from './components/Header'
+import { Letter } from './components/Letter';
 import { Tip } from './components/Tip';
 
 function App() {
@@ -14,6 +15,15 @@ function App() {
         <Header current={1} max={10} onRestart={handleRestart} />
         
         <Tip tip={"Uma das linguagens de programação mais utilizadas"}/>
+      
+        <div className={styles.word}>
+          <Letter value="R" />  
+          <Letter value="E" />  
+          <Letter value="A" />  
+          <Letter value="C" />  
+          <Letter value="T" />  
+        </div>
+      
       </main>
     </div>
   )
