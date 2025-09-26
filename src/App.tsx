@@ -8,6 +8,8 @@ import { LettersUsed, type LetterUsedProps } from './components/LettersUsed';
 import { Tip } from './components/Tip';
 import { WORDS, type Challenge } from './utils/words';
 
+const ATTEMPTS_MARGIN = 5
+
 function App() {
   const [challenge, setChallenge] = useState<Challenge| null>(null)
   const [score, setScore] = useState(0)
@@ -66,7 +68,7 @@ function App() {
   return (
     <div className={styles.container}>
       <main>
-        <Header current={lettersUsed.length} max={10} onRestart={handleRestart} />
+        <Header current={lettersUsed.length} max={challenge.word.length + ATTEMPTS_MARGIN} onRestart={handleRestart} />
         
         <Tip tip={challenge.tip}/>
       
