@@ -11,6 +11,7 @@ import { WORDS, type Challenge } from './utils/words';
 function App() {
   const [challenge, setChallenge] = useState<Challenge| null>(null)
   const [attempts, setAttempts] = useState(0)
+  const [score, setScore] = useState(0)
   const [letter, setLetter] = useState("")
   const [lettersUsed, setLettersUsed] = useState<LetterUsedProps[]>([])
 
@@ -43,7 +44,13 @@ function App() {
       return 
     }
 
-    setLettersUsed((prevState) => [...prevState, { value: value, correct: false}])
+    const hits = challenge.word.toUpperCase().split("").filter((char)=> char === value).length
+
+    const correct = hits > 0
+    const currentScore = score + hits
+
+    setLettersUsed((prevState) => [...prevState, { value, correct }])
+    setScore(currentScore)
     setLetter("")
   }
 
