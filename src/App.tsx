@@ -18,8 +18,10 @@ function App() {
 
 
   function handleRestart() {
-    console.log('restart the game');
-    startGame();
+    const isConfirmed = window.confirm("Você tem certeza que deseja reiniciar o jogo?")
+    if(isConfirmed) {
+      startGame();
+    }
   }
 
   function startGame() {
@@ -57,11 +59,29 @@ function App() {
     setLetter("")
   }
 
-  useEffect(()=>{
+  function endGame(message: string){
+    alert(message)
     startGame()
-  },[])
+  }
 
-  if(!challenge){
+  useEffect(()=> startGame(),[])
+
+  useEffect(()=> {
+    if(!challenge) return
+
+    setTimeout(()=> {
+      if(score === challenge.word.length){
+        return endGame("Parabéns, você descobriu a palavra!")
+      }
+      const attemptLimit = challenge.word.length + ATTEMPTS_MARGIN
+      if(lettersUsed.length === attemptLimit ){
+        return endGame("Que pena, você usou todas as tentativas!")
+      }
+    }, 200)
+
+  },[score, lettersUsed.length])
+
+  if(!challenge) {
     return
   }
 
@@ -80,6 +100,7 @@ function App() {
                 <Letter 
                 key={index} 
                 value={letterUsed?.value}
+                size="small"
                 color={letterUsed?.correct ? "correct" : "default"} />  
               )
             })
