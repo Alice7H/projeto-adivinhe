@@ -99,8 +99,7 @@ function App() {
               return (
                 <Letter 
                 key={index} 
-                value={letterUsed?.value}
-                size="small"
+                value={letterUsed?.value}         
                 color={letterUsed?.correct ? "correct" : "default"} />  
               )
             })
