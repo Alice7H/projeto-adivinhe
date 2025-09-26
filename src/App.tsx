@@ -40,14 +40,17 @@ function App() {
       <main>
         <Header current={attempts} max={10} onRestart={handleRestart} />
         
-        <Tip tip={"Uma das linguagens de programação mais utilizadas"}/>
+        <Tip tip={challenge.tip}/>
       
         <div className={styles.word}>
-          <Letter value="R" />  
-          <Letter value="E" />  
-          <Letter value="A" />  
-          <Letter value="C" />  
-          <Letter value="T" />  
+          {
+            challenge.word.split("").map((_item, index) => {
+              return (
+                <Letter key={index} value="" size='small'/>  
+              )
+            })
+          }
+          
         </div>
       
         <h4>Palpite</h4>
