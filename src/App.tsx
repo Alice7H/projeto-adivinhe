@@ -10,7 +10,6 @@ import { WORDS, type Challenge } from './utils/words';
 
 function App() {
   const [challenge, setChallenge] = useState<Challenge| null>(null)
-  const [attempts, setAttempts] = useState(0)
   const [score, setScore] = useState(0)
   const [letter, setLetter] = useState("")
   const [lettersUsed, setLettersUsed] = useState<LetterUsedProps[]>([])
@@ -18,14 +17,16 @@ function App() {
 
   function handleRestart() {
     console.log('restart the game');
+    startGame();
   }
 
   function startGame() {
     const index = Math.floor(Math.random() * WORDS.length)
     const randomWord = WORDS[index]
     setChallenge(randomWord) 
-    setAttempts(0)
+    setScore(0)
     setLetter("")
+    setLettersUsed([])
   }
 
   function handleConfirm(){
@@ -65,15 +66,19 @@ function App() {
   return (
     <div className={styles.container}>
       <main>
-        <Header current={attempts} max={10} onRestart={handleRestart} />
+        <Header current={lettersUsed.length} max={10} onRestart={handleRestart} />
         
         <Tip tip={challenge.tip}/>
       
         <div className={styles.word}>
           {
-            challenge.word.split("").map((_item, index) => {
+            challenge.word.split("").map((letter, index) => {
+              const letterUsed = lettersUsed.find((used)=> used.value.toUpperCase() === letter.toUpperCase())
               return (
-                <Letter key={index} value="" size='small'/>  
+                <Letter 
+                key={index} 
+                value={letterUsed?.value}
+                color={letterUsed?.correct ? "correct" : "default"} />  
               )
             })
           }
