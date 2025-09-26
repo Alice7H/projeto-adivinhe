@@ -4,7 +4,7 @@ import { Button } from './components/Button';
 import { Header } from './components/Header'
 import { Input } from './components/Input';
 import { Letter } from './components/Letter';
-import { LettersUsed } from './components/LettersUsed';
+import { LettersUsed, type LetterUsedProps } from './components/LettersUsed';
 import { Tip } from './components/Tip';
 import { WORDS, type Challenge } from './utils/words';
 
@@ -12,7 +12,7 @@ function App() {
   const [challenge, setChallenge] = useState<Challenge| null>(null)
   const [attempts, setAttempts] = useState(0)
   const [letter, setLetter] = useState("")
-  const [lettersUsed, setLettersUsed] = useState([])
+  const [lettersUsed, setLettersUsed] = useState<LetterUsedProps[]>([])
 
 
   function handleRestart() {
@@ -60,7 +60,7 @@ function App() {
           <Button title="Confirmar"/>
         </div>
 
-        <LettersUsed/>
+        <LettersUsed data={lettersUsed} />
       </main>
     </div>
   )
